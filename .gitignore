@@ -3,3 +3,4 @@
 ecl_facebook.egg-info/
 build/
 dist/
+*.gz
