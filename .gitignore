@@ -4,3 +4,4 @@ ecl_facebook.egg-info/
 build/
 dist/
 *.gz
+ecl_twitter.egg-info/
