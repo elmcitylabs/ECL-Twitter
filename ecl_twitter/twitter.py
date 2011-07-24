@@ -22,7 +22,7 @@ generate_nonce = lambda: hashlib.sha1(str(random.random())).hexdigest()
 PARAMS = lambda: {
     'oauth_nonce': generate_nonce(),
     'oauth_timestamp': generate_timestamp(),
-    'oauth_consumer_key': settings.TWITTER_CONSUMER_KEY,
+    'oauth_consumer_key': settings.TWITTER_KEY,
     'oauth_signature_method': 'HMAC-SHA1',
     'oauth_version': '1.0'
 }
@@ -35,7 +35,7 @@ def generate_base_string(method, url, params):
     return '&'.join([method, urllib.quote_plus(url), encoded_params])
 
 def generate_signature(base_string, oauth_token_secret=None):
-    signing_key = settings.TWITTER_CONSUMER_SECRET + '&'
+    signing_key = settings.TWITTER_SECRET + '&'
     if oauth_token_secret:
         signing_key += oauth_token_secret
 
