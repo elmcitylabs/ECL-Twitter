@@ -38,10 +38,10 @@ def twitter_oauth_complete(request):
     client = twitter.Twitter(token, secret)
     data = client.generate_access_token(verifier)
 
-    access_token = data['oauth_token']
-    access_token_secret = data['oauth_token_secret']
-    username = data['screen_name']
-    id = data['user_id']
+    twitter_token = data['oauth_token']
+    twitter_token_secret = data['oauth_token_secret']
+    twitter_username = data['screen_name']
+    twitter_id = data['user_id']
 
     # At this point, there are two things that could happen. Either there
     # is an existing user that needs to be tied to a Twitter account, or a
@@ -51,17 +51,18 @@ def twitter_oauth_complete(request):
     else:
         app_label, model_name = settings.PRIMARY_USER_MODEL.split('.')
         GenericUser = get_model(app_label, model_name)
-        user, created = GenericUser.objects.get_or_create(twitter_id=id)
+        user, created = GenericUser.objects.get_or_create(twitter_id=twitter_id)
 
     # Sweet. The user now has Twitter data. Redirect them home.
     # Middleware will take care of other redirects.
-    user.twitter_username = username
-    user.twitter_access_token = access_token
-    user.twitter_access_token_secret = access_token_secret
+    user.twitter_id = twitter_id
+    user.twitter_username = twitter_username
+    user.twitter_token = twitter_token
+    user.twitter_token_secret = twitter_token_secret
     user.save()
 
     # Authenticate the user
-    user = authenticate(access_token=access_token, access_token_secret=access_token_secret)
+    user = authenticate(access_token=token, access_token_secret=twitter_token_secret)
     if user:
         login(request, user)
     else:
