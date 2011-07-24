@@ -1,7 +1,6 @@
 import logging
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db.models import get_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -15,8 +14,6 @@ logger = logging.getLogger(__name__)
 
 @require_GET
 def twitter_oauth_begin(request):
-    signals.twitter_auth_started.send(sender="ecl_twitter")
-
     client = twitter.Twitter()
     data = client.generate_authorization_url()
     token = data['oauth_token']
@@ -72,5 +69,5 @@ def twitter_oauth_complete(request):
 
     signals.twitter_auth_completed.send(sender='ecl_twitter', data=data)
 
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(settings.TWITTER_POST_COMPLETE_URL)
 
