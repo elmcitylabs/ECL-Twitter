@@ -70,11 +70,7 @@ def twitter_oauth_complete(request):
     else:
         raise Exception
 
-    signals.twitter_auth_completed.send(sender='ecl_twitter',
-            access_token=access_token,
-            access_token_secret=access_token_secret,
-            username=username,
-            id=id)
+    signals.twitter_auth_completed.send(sender='ecl_twitter', data=data)
 
     return HttpResponseRedirect(reverse('home'))
 
