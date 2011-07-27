@@ -1,14 +1,12 @@
 import logging
 
 from django.conf import settings
-from django.db.models import get_model
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.views.decorators.http import require_GET
-from django.contrib.auth import authenticate, login
 
 import twitter
-import signals
+
+from decorators import twitter_callback
 
 logger = logging.getLogger(__name__)
 
@@ -25,50 +23,7 @@ def twitter_oauth_begin(request):
     return HttpResponseRedirect(url + '?oauth_token=' + token)
 
 @require_GET
-def twitter_oauth_complete(request):
-    token = request.GET['oauth_token']
-    verifier = request.GET['oauth_verifier']
-
-    if token != request.session['temporary_oauth_token']:
-        logger.warning("tokens don't match, do not move forward with authentication")
-        return render(request, 'errors/500.html')
-
-    secret = request.session['temporary_oauth_secret']
-
-    client = twitter.Twitter(token, secret)
-    data = client.generate_access_token(verifier)
-
-    twitter_token = data['oauth_token']
-    twitter_token_secret = data['oauth_token_secret']
-    twitter_username = data['screen_name']
-    twitter_id = data['user_id']
-
-    # At this point, there are two things that could happen. Either there
-    # is an existing user that needs to be tied to a Twitter account, or a
-    # new user will be created.
-    if request.user.is_authenticated():
-        user = request.user
-    else:
-        app_label, model_name = settings.PRIMARY_USER_MODEL.split('.')
-        GenericUser = get_model(app_label, model_name)
-        user, created = GenericUser.objects.get_or_create(twitter_id=twitter_id)
-
-    # Sweet. The user now has Twitter data. Redirect them home.
-    # Middleware will take care of other redirects.
-    user.twitter_id = twitter_id
-    user.twitter_username = twitter_username
-    user.twitter_token = twitter_token
-    user.twitter_token_secret = twitter_token_secret
-    user.save()
-
-    # Authenticate the user
-    user = authenticate(access_token=token, access_token_secret=twitter_token_secret)
-    if user:
-        login(request, user)
-    else:
-        raise Exception
-
-    signals.twitter_auth_completed.send(sender='ecl_twitter', data=data)
-
+@twitter_callback
+def twitter_oauth_complete(request, data):
     return HttpResponseRedirect(settings.TWITTER_POST_COMPLETE_URL)
 
