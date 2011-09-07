@@ -10,6 +10,7 @@ setup(
     description = 'Easy Twitter integration for Django.',
     author = 'Dan Loewenherz',
     author_email = 'dan@elmcitylabs.com',
-    packages=['ecl_twitter'],
+    packages=["ecl_twitter"],
+    install_requires=["django==1.3"],
 )
 
