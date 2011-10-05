@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name = 'ecl_twitter',
-    version = '0.3.0',
+    version = '0.3.1',
     url = 'http://elmcitylabs.com',
     license = 'BSD',
     description = 'Easy Twitter integration for Django.',
