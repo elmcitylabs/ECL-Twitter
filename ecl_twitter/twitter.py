@@ -6,8 +6,8 @@ import urllib
 import urlparse
 import httplib
 
-from django.conf import settings
 from operator import itemgetter
+import constants
 
 TWITTER_BASE_URL = 'https://api.twitter.com'
 TWITTER_INSECURE_URL = 'http://api.twitter.com'
@@ -22,7 +22,7 @@ generate_nonce = lambda: hashlib.sha1(str(random.random())).hexdigest()
 PARAMS = lambda: {
     'oauth_nonce': generate_nonce(),
     'oauth_timestamp': generate_timestamp(),
-    'oauth_consumer_key': settings.TWITTER_KEY,
+    'oauth_consumer_key': constants.TWITTER_KEY,
     'oauth_signature_method': 'HMAC-SHA1',
     'oauth_version': '1.0'
 }
@@ -35,7 +35,7 @@ def generate_base_string(method, url, params):
     return '&'.join([method, urllib.quote_plus(url), encoded_params])
 
 def generate_signature(base_string, oauth_token_secret=None):
-    signing_key = settings.TWITTER_SECRET + '&'
+    signing_key = constants.TWITTER_SECRET + '&'
     if oauth_token_secret:
         signing_key += oauth_token_secret
 
@@ -63,7 +63,7 @@ class Twitter():
         if callback:
             params = {'oauth_callback': callback}
         else:
-            params = {'oauth_callback': settings.TWITTER_CALLBACK_URL}
+            params = {'oauth_callback': constants.TWITTER_REDIRECT_URL}
 
         response = self.get(TWITTER_OAUTH_REQUEST, params)
 

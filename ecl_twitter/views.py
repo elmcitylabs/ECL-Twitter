@@ -25,5 +25,5 @@ def twitter_oauth_begin(request):
 @require_GET
 @twitter_callback
 def twitter_oauth_complete(request, data):
-    return HttpResponseRedirect(settings.TWITTER_POST_COMPLETE_URL)
+    return HttpResponseRedirect(settings.TWITTER_REDIRECT_URL)
 
