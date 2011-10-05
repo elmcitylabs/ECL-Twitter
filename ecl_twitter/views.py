@@ -11,7 +11,7 @@ from decorators import twitter_callback
 logger = logging.getLogger(__name__)
 
 @require_GET
-def twitter_oauth_begin(request):
+def oauth_twitter_begin(request):
     client = twitter.Twitter()
     data = client.generate_authorization_url()
     token = data['oauth_token']
@@ -24,6 +24,6 @@ def twitter_oauth_begin(request):
 
 @require_GET
 @twitter_callback
-def twitter_oauth_complete(request, data):
+def oauth_twitter_complete(request, data):
     return HttpResponseRedirect(settings.TWITTER_REDIRECT_URL)
 
