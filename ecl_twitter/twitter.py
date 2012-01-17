@@ -6,6 +6,8 @@ import urllib
 import urlparse
 import httplib
 
+import requests
+
 from operator import itemgetter
 import constants
 
@@ -102,6 +104,8 @@ class Twitter():
 
         if params:
             encoded_params = "&".join("%s=%s" % (k, v) for k, v in query_params.iteritems())
+        else:
+            encoded_params = ""
 
         if method == 'POST':
             conn.request(method, resource, encoded_params, {'Authorization': auth_string})
