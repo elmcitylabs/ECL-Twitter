@@ -11,6 +11,6 @@ setup(
     author = 'Dan Loewenherz',
     author_email = 'dan@elmcitylabs.com',
     packages=["ecl_twitter"],
-    install_requires=["django==1.3", 'requests'],
+    install_requires=["django>=1.3", 'requests'],
 )
 
