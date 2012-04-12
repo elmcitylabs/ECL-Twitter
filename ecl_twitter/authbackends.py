@@ -4,11 +4,10 @@ from django.db.models import get_model
 app_label, model_name = settings.PRIMARY_USER_MODEL.split('.')
 GenericUser = get_model(app_label, model_name)
 
-class TwitterBackend():
-    def authenticate(self, access_token, access_token_secret):
+class TwitterAuthBackend():
+    def authenticate(self, user_id):
         try:
-            return GenericUser.objects.get(twitter_access_token=access_token,
-                    twitter_access_token_secret=access_token_secret)
+            return GenericUser.objects.get(id=user_id)
         except GenericUser.DoesNotExist:
             return None
 
