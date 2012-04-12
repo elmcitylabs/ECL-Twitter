@@ -1,13 +1,19 @@
 How to get started
 ==================
 
-1. Run `python setup.py install`.
+1. Run `pip install ecl_twitter`.
 
 2. In your `settings.py` file, insert the following three constants:
 
         TWITTER_KEY = "XXX"
         TWITTER_SECRET = "XXX"
         TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
+
+    Or, alternatively, set the key, secret, and redirect URL in your environment.
+
+        export TWITTER_KEY="XXX"
+        export TWITTER_SECRET="XXX"
+        export TWITTER_REDIRECT_URL="http://example.com/oauth/complete"
 
 3. In your `views.py`, define a view to handle the callback.
 
