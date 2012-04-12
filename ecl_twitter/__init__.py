@@ -9,7 +9,7 @@ ecl_twitter
 
 """
 
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 __author__ = "Dan Loewenherz"
 __copyright__ = "Copyright 2012, Elm City Labs, LLC"
 __maintainer__ = "Dan Loewenherz"
