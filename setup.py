@@ -31,5 +31,5 @@ setup(
         ],
     install_requires=['requests', 'objectifier>=1.1.2'],
     package_data={'': ['LICENSE']},
-    )
+)
 
