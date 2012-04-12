@@ -38,11 +38,7 @@ If you'd like to use ECL Twitter for a stand alone application (e.g., in a scrip
     export TWITTER_SECRET="irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
     export TWITTER_REDIRECT_URL="http://example.com/oauth/complete"
 
-On the other hand, if you're using Django, set these values in your settings file.::
-
-    TWITTER_KEY = "Gmxb5Rh7gpOpzunQ7SQcOA"
-    TWITTER_SECRET = "irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
-    TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
+If you're only interested in integration with Django, read :ref:`django`.
 
 .. _authentication:
 
@@ -77,8 +73,8 @@ So, yeah. That's it. Be fruitful and multiply.
 
 .. _django:
 
-Django
-------
+Integrating with Django
+-----------------------
 
 What we did above is easy. For Django projects, we've made it even easier. In your views file::
 
@@ -102,7 +98,7 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
         login(request, user)
         return HttpResponseRedirect(reverse('home'))
 
-Change two values in your settings.::
+Add these values to your settings.::
 
     # The User model that you'll be using to authenticate with Twitter.
     PRIMARY_USER_MODEL = "app.User"
@@ -111,6 +107,10 @@ Change two values in your settings.::
         # ...
         'ecl_twitter.backends.TwitterAuthBackend',
     )
+
+    TWITTER_KEY = "Gmxb5Rh7gpOpzunQ7SQcOA"
+    TWITTER_SECRET = "irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
+    TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
 
 Then map the above views in your urls.py::
 
