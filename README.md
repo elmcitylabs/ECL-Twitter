@@ -3,7 +3,7 @@ How to get started
 
 1. Run `pip install ecl_twitter`.
 
-2. In your `settings.py` file, insert the following three constants:
+2. In your `settings.py` file, specify `TWITTER_KEY`, `TWITTER_SECRET`, and `TWITTER_REDIRECT_URL`. E.g.,
 
         TWITTER_KEY = "Gmxb5Rh7gpOpzunQ7SQcOA"
         TWITTER_SECRET = "irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
