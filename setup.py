@@ -16,7 +16,7 @@ setup(
     author = ecl_twitter.__author__,
     author_email = ecl_twitter.__email__,
     packages=['ecl_twitter'],
-    install_requires=['django>=1.3', 'requests', 'objectifier>=1.1.2'],
+    install_requires=['requests', 'objectifier>=1.1.2'],
     package_data={'': ['LICENSE']},
 )
 
