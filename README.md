@@ -5,14 +5,14 @@ How to get started
 
 2. In your `settings.py` file, insert the following three constants:
 
-
     TWITTER_KEY = "XXX"
     TWITTER_SECRET = "XXX"
     TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
 
 3. In your `views.py`, define a view to handle the callback.
 
-
+<code>
+<pre>
     from ecl_twitter.decorators import twitter_callback
 
     @twitter_callback
@@ -24,6 +24,8 @@ How to get started
         # * user_id
         # * screen_name
         # Do what you need to do with this data.
+</pre>
+</code>
 
 3. In your `urls.py`, add the following url patterns.
 
