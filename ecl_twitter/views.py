@@ -13,14 +13,10 @@ logger = logging.getLogger(__name__)
 @require_GET
 def oauth_twitter_begin(request):
     client = twitter.Twitter()
-    data = client.generate_authorization_url()
-    token = data['oauth_token']
-    secret = data['oauth_token_secret']
-
+    url, token, secret = client.generate_authorization()
     request.session['temporary_oauth_token'] = token
     request.session['temporary_oauth_secret'] = secret
-    url = twitter.TWITTER_BASE_URL + twitter.TWITTER_OAUTH_AUTHORIZE
-    return HttpResponseRedirect(url + '?oauth_token=' + token)
+    return HttpResponseRedirect(url)
 
 @require_GET
 @twitter_callback

@@ -1,16 +1,22 @@
 #!/usr/bin/env/python
 
-from setuptools import setup
+import ecl_twitter
+
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 setup(
     name = 'ecl_twitter',
-    version = '0.3.3',
+    version = ecl_twitter.__version__,
     url = 'http://elmcitylabs.com',
-    license = 'BSD',
+    license = ecl_twitter.__license__,
     description = 'Easy Twitter integration for Django.',
-    author = 'Dan Loewenherz',
-    author_email = 'dan@elmcitylabs.com',
-    packages=["ecl_twitter"],
-    install_requires=["django==1.3", 'requests'],
+    author = ecl_twitter.__author__,
+    author_email = ecl_twitter.__email__,
+    packages=['ecl_twitter'],
+    install_requires=['django>=1.3', 'requests', 'objectifier>=1.1.2'],
+    package_data={'': ['LICENSE']},
 )
 
