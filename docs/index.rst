@@ -9,12 +9,12 @@ ECL Twitter
 About
 -----
 
-ECL Twitter is because we were tired of one-size-fits-all solutions for
-integrating Twitter into our Django applications. If you use Django, you can
-even use some of the view decorators we've written that make handling Twitter
-OAuth as easy as plugging in 5 lines of code.
+ECL Twitter is an awesome Twitter library for Python 2.7+. It makes the Twitter
+API a joy to use, and Django integration is baked in. To find out more, read
+on!
 
-If you have an issue to report or a feature request, add it at https://github.com/elmcitylabs/ECL-Twitter/issues.
+If you have an issue to report or a feature request, add it at
+https://github.com/elmcitylabs/ECL-Twitter/issues.
 
 .. _installation:
 
