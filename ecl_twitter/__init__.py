@@ -11,11 +11,11 @@ ecl_twitter
 
 try:
     from .twitter import Twitter
+    __all__ = ['Twitter']
 except ImportError:
     # One of the required libraries hasn't been installed yet.
     pass
 
-__all__ = ['Twitter']
 __version__ = "1.0.4"
 __author__ = "Dan Loewenherz"
 __copyright__ = "Copyright 2012, Elm City Labs, LLC"
