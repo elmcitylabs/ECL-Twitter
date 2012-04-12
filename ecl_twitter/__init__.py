@@ -16,7 +16,7 @@ except ImportError:
     # One of the required libraries hasn't been installed yet.
     pass
 
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 __author__ = "Dan Loewenherz"
 __copyright__ = "Copyright 2012, Elm City Labs, LLC"
 __maintainer__ = "Dan Loewenherz"
