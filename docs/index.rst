@@ -85,6 +85,8 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
 
     from .models import User
 
+    # ...
+
     @twitter_begin
     def oauth_twitter_begin(request):
         pass
@@ -113,6 +115,8 @@ Add these values to your settings.::
     TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
 
 Then map the above views in your urls.py::
+
+    # ...
 
     urlpatterns = patterns('app.views',
         # ...
