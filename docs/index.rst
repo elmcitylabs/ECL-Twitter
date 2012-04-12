@@ -1,0 +1,139 @@
+.. ECL Twitter documentation master file, created by
+   sphinx-quickstart on Thu Apr 12 12:18:30 2012.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+ECL Twitter
+===========
+
+About
+-----
+
+ECL Twitter is because we were tired of one-size-fits-all solutions for
+integrating Twitter into our Django applications. If you use Django, you can
+even use some of the view decorators we've written that make handling Twitter
+OAuth as easy as plugging in 5 lines of code.
+
+If you have an issue to report or a feature request, add it at https://github.com/elmcitylabs/ECL-Twitter/issues.
+
+.. _installation:
+
+Installation
+------------
+
+ECL Twitter is on PyPi, so we recommend installing via `pip`_::
+
+    $ pip install ecl-twitter
+
+.. _pip: http://www.pip-installer.org/en/latest/
+
+.. _configuration:
+
+Configuration
+-------------
+
+If you'd like to use ECL Twitter for a stand alone application (e.g., in a script you're writing to download your tweets), you'll need to set the environment variables ``TWITTER_KEY``, ``TWITTER_SECRET``, and ``TWITTER_REDIRECT_URL`` with the values appropriate for your Twitter application.::
+
+    export TWITTER_KEY="Gmxb5Rh7gpOpzunQ7SQcOA"
+    export TWITTER_SECRET="irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
+    export TWITTER_REDIRECT_URL="http://example.com/oauth/complete"
+
+On the other hand, if you're using Django, set these values in your settings file.::
+
+    TWITTER_KEY = "Gmxb5Rh7gpOpzunQ7SQcOA"
+    TWITTER_SECRET = "irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
+    TWITTER_REDIRECT_URL = "http://example.com/oauth/complete"
+
+.. _authentication:
+
+Authentication
+--------------
+
+We've made authentication very simple. Probably too simple, to be honest.::
+
+    >>> from twitter import Twitter
+    >>> client = Twitter()
+    >>> url, token, secret = client.generate_authorization()
+    >>> url
+    https://api.twitter.com/oauth/authorize?oauth_token=XXX
+
+After opening this URL in your browser and allowing the application, you'll be redirected to a page with a PIN. This is your ``verifier``.::
+
+    >>> client = Twitter(token, secret)
+    >>> data = client.oauth.access_token(oauth_verifier=verifier)
+    >>> data
+    <Objectifier#dict oauth_token_secret=unicode user_id=unicode oauth_token=unicode screen_name=unicode>
+
+Congratulations, you have successfully authenticated with Twitter (told you it was easy). ``data`` is an ``Objectifier`` object which should contain your token, secret, user id, and screen name.
+
+To call the API, use your newly-acquired access token and access token secret::
+
+    >>> client = Twitter(data.oauth_token, data.oauth_token_secret)
+    >>> tweets = client.statuses.user_timeline()
+    >>> tweets
+    <Objectifier#list elements:20>
+
+So, yeah. That's it. Be fruitful and multiply.
+
+.. _django:
+
+Django
+------
+
+What we did above is easy. For Django projects, we've made it even easier. In your views file::
+
+    from django.contrib.auth import authenticate, login
+    from django.http import HttpResponseRedirect
+
+    from ecl_twitter.decorators import twitter_begin, twitter_callback
+
+    from .models import User
+
+    @twitter_begin
+    def oauth_twitter_begin(request):
+        pass
+
+    @twitter_callback
+    def oauth_twitter_complete(request, data):
+        user, _ = User.objects.get_or_create(screen_name=data.screen_name, defaults={
+            'access_token': data.oauth_token,
+            'access_token_secret': data.oauth_token_secret })
+        user = authenticate(id=user.id)
+        login(request, user)
+        return HttpResponseRedirect(reverse('home'))
+
+Change two values in your settings.::
+
+    # The User model that you'll be using to authenticate with Twitter.
+    PRIMARY_USER_MODEL = "app.User"
+
+    AUTHENTICATION_BACKENDS = (
+        # ...
+        'ecl_twitter.backends.TwitterAuthBackend',
+    )
+
+Then map the above views in your urls.py::
+
+    urlpatterns = patterns('app.views',
+        # ...
+        url(r'^oauth/twitter/begin$', 'oauth_twitter_begin'),
+        url(r'^oauth/twitter/complete$', 'oauth_twitter_complete'),
+    )
+
+You're done. Oh, you might also want to add some fields for storing the
+Twitter-related fields in your user model.
+
+Contributing, feedback, and questions
+-------------------------------------
+
+* Github: https://github.com/elmcitylabs
+* Email: opensource@elmcitylabs.com.
+* Twitter: `@elmcitylabs <http://twitter.com/elmcitylabs>`_
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
