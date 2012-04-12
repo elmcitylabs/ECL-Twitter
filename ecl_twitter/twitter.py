@@ -26,11 +26,18 @@ PARAMS = lambda: {
 encode_tuple = lambda k, v: urllib.quote(k) + '%3D' + urllib.quote(urllib.quote(v, safe=''))
 
 def generate_base_string(method, url, params):
+    """
+    Generate a base string using the given method, url, and URL parameters.
+    """
     sorted_params = sorted(params.iteritems(), key=itemgetter(0))
     encoded_params = '%26'.join([encode_tuple(k, v) for k, v in sorted_params])
     return '&'.join([method, urllib.quote_plus(url), encoded_params])
 
 def generate_signature(base_string, oauth_token_secret=None):
+    """
+    Generate an HMAC signature with the given base string and the
+    ``oauth_token_secret``, if provided.
+    """
     signing_key = settings.SECRET + '&'
     if oauth_token_secret:
         signing_key += oauth_token_secret
@@ -48,6 +55,10 @@ class TwitterError(Exception):
 
 
 class TwitterCall(object):
+    """
+    Helper class that performs all the work behind the scenes for the
+    ``Twitter`` object.
+    """
     def __init__(self, token, secret, endpoint_components):
         self.token = token
         self.secret = secret
@@ -110,12 +121,23 @@ class TwitterCall(object):
         return response
 
 class SecureTwitterCall(TwitterCall):
+    """
+    A subclass of TwitterCall that performs all requests over SSL.
+    """
     def __init__(self, *args, **kwargs):
         super(SecureTwitterCall, self).__init__(*args, **kwargs)
         self.base = settings.BASE_URL
 
 
 class Twitter():
+    """
+    Exposes a simple mechanism to interact with the Twitter API. E.g.,
+
+    >>> twitter = Twitter(access_token, access_secret_secret)
+    >>> twitter.favorites()
+    >>> twitter.statuses.user_timeline()
+    >>> twitter.statuses.user_timeline(screen_name='elmcitylabs')
+    """
     def __init__(self, token=None, secret=None, ssl=True):
         self.token = token
         self.secret = secret
@@ -140,24 +162,4 @@ class Twitter():
 
     def __dir__(self):
         return ["generate_authorization"]
-
-if __name__ == '__main__':
-    r = Redis()
-    if not r.exists('oauth_token'):
-        t = Twitter()
-        url, token, secret = t.generate_authorization()
-        print url
-        verifier = raw_input("Enter verifier: ")
-        t = Twitter(token, secret)
-        data = t.oauth.access_token(oauth_verifier=verifier)
-        token = data['oauth_token']
-        secret = data['oauth_token_secret']
-        r.set('oauth_token', token)
-        r.set('oauth_token_secret', secret)
-    else:
-        token = r.get('oauth_token')
-        secret = r.get('oauth_token_secret')
-
-    t = Twitter(token, secret)
-    x = t.favorites()
 

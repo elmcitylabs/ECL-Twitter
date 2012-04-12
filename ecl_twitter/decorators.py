@@ -7,6 +7,10 @@ from signals import post_twitter_auth
 logger = logging.getLogger(__name__)
 
 def twitter_begin(fun):
+    """
+    Django view decorator that gets a request token and secret from Twitter and
+    redirects the user to a URL where they can authorize the application.
+    """
     @wraps(fun)
     def inner(request, *args, **kwargs):
         fun(request, *args, **kwargs)
@@ -18,6 +22,15 @@ def twitter_begin(fun):
     return inner
 
 def twitter_callback(fun):
+    """
+    Django view decorator that generates a Twitter OAuth access token and
+    secret after the user authorizes the application. Must be used in
+    conjunction with the ``twitter_begin`` decorator.
+
+    The wrapped view is passed an ``Objectifier`` object containing the the
+    access token, the access token secret, the user id, and the user's screen
+    name.
+    """
     @wraps(fun)
     def inner(request, *args, **kwargs):
         token = request.GET.get('oauth_token')

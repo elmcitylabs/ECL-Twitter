@@ -5,6 +5,9 @@ app_label, model_name = settings.PRIMARY_USER_MODEL.split('.')
 GenericUser = get_model(app_label, model_name)
 
 class TwitterAuthBackend():
+    """
+    Simple authentication backend that logs in a user with a specified id.
+    """
     def authenticate(self, user_id):
         try:
             return GenericUser.objects.get(id=user_id)
