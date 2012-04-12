@@ -48,15 +48,15 @@ Authentication
 We've made authentication very simple. Probably too simple, to be honest.::
 
     >>> from twitter import Twitter
-    >>> client = Twitter()
-    >>> url, token, secret = client.generate_authorization()
+    >>> twitter = Twitter()
+    >>> url, token, secret = twitter.generate_authorization()
     >>> url
     https://api.twitter.com/oauth/authorize?oauth_token=XXX
 
 After opening this URL in your browser and allowing the application, you'll be redirected to a page with a PIN. This is your ``verifier``.::
 
-    >>> client = Twitter(token, secret)
-    >>> data = client.oauth.access_token(oauth_verifier=verifier)
+    >>> twitter = Twitter(token, secret)
+    >>> data = twitter.oauth.access_token(oauth_verifier=verifier)
     >>> data
     <Objectifier#dict oauth_token_secret=unicode user_id=unicode oauth_token=unicode screen_name=unicode>
 
@@ -64,8 +64,8 @@ Congratulations, you have successfully authenticated with Twitter (told you it w
 
 To call the API, use your newly-acquired access token and access token secret::
 
-    >>> client = Twitter(data.oauth_token, data.oauth_token_secret)
-    >>> tweets = client.statuses.user_timeline()
+    >>> twitter = Twitter(data.oauth_token, data.oauth_token_secret)
+    >>> tweets = twitter.statuses.user_timeline()
     >>> tweets
     <Objectifier#list elements:20>
 
