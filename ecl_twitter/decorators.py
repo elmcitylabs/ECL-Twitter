@@ -6,6 +6,17 @@ from signals import post_twitter_auth
 
 logger = logging.getLogger(__name__)
 
+def twitter_begin(fun):
+    @wraps(fun)
+    def inner(request, *args, **kwargs):
+        fun(request, *args, **kwargs)
+        client = twitter.Twitter()
+        url, token, secret = client.generate_authorization()
+        request.session['temporary_oauth_token'] = token
+        request.session['temporary_oauth_secret'] = secret
+        return HttpResponseRedirect(url)
+    return inner
+
 def twitter_callback(fun):
     @wraps(fun)
     def inner(request, *args, **kwargs):
@@ -20,7 +31,7 @@ def twitter_callback(fun):
 
         secret = request.session['temporary_oauth_secret']
         client = twitter.Twitter(token, secret)
-        data = client.oauth.accces_token(oauth_verifier=verifier)
+        data = client.oauth.access_token(oauth_verifier=verifier)
         post_twitter_auth.send('ecl_twitter', data=data)
         return fun(request, data, *args, **kwargs)
     return inner
