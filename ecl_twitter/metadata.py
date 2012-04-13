@@ -1,5 +1,5 @@
 
-__version__ = "1.0.6"
+__version__ = "1.0.7"
 __author__ = "Dan Loewenherz"
 __copyright__ = "Copyright 2012, Elm City Labs, LLC"
 __maintainer__ = "Dan Loewenherz"
