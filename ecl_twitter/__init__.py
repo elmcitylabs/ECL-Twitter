@@ -9,10 +9,20 @@ ecl_twitter
 
 """
 
-__version__ = "1.0.6"
-__author__ = "Dan Loewenherz"
-__copyright__ = "Copyright 2012, Elm City Labs, LLC"
-__maintainer__ = "Dan Loewenherz"
-__email__ = "dan@elmcitylabs.com"
-__license__ = "Apache 2.0"
+from .metadata import (
+    __author__,
+    __copyright__,
+    __email__,
+    __license__,
+    __maintainer__,
+    __version__,
+)
 
+from .twitter import Twitter, TwitterError
+from .decorators import twitter_begin, twitter_callback
+
+__all__ = [
+    '__author__', '__copyright__', '__email__', '__license__',
+    '__maintainer__', '__version__', 'Twitter', 'TwitterError',
+    'twitter_begin', 'twitter_callback'
+]
