@@ -4,15 +4,37 @@ import hmac
 import hashlib
 import urllib
 import urlparse
-import httplib
 import uuid
 from operator import itemgetter
-import json
 
-import requests
+try
+    import requests
+except ImportError:
+    import urllib2
 
-from objectifier import Objectifier
-from redis import StrictRedis as Redis
+    class Response(object):
+        def __init__(self, data):
+            self.text = data
+
+
+    class requests(object):
+        @staticmethod
+        def post(url, data, headers):
+            response = urllib2.urlopen(url, data, headers=headers)
+            return Response(response.read())
+
+        @staticmethod
+        def get(url, params, headers):
+            encoded_params = "&".join("%s=%s" % (k, v) \
+                    for k, v in params.iteritems())
+            response = urllib2.urlopen(url + "?" + encoded_params, headers=headers)
+            return Response(response.read())
+
+try:
+    from objectifier import Objectifier
+except ImportError:
+    Objectifier = lambda k: k
+
 import settings
 
 PARAMS = lambda: {
