@@ -6,7 +6,7 @@ init:
 
 version:
 	echo "Packaging version ${VERSION}"
-	sed -i '' 's/\(__version__ = \).*/\1"${VERSION}"/g' ecl_twitter/__init__.py
+	sed -i '' 's/\(__version__ = \).*/\1"${VERSION}"/g' ecl_twitter/metadata.py
 
 commit:
 	git add .
