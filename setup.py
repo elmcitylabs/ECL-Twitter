@@ -1,6 +1,6 @@
 #!/usr/bin/env/python
 
-import ecl_twitter
+from ecl_twitter import metadata
 
 try:
     from setuptools import setup
@@ -9,12 +9,12 @@ except ImportError:
 
 setup(
     name = 'ecl_twitter',
-    version = ecl_twitter.__version__,
+    version = metadata.__version__,
     url = 'http://elmcitylabs.com',
-    license = ecl_twitter.__license__,
+    license = metadata.__license__,
     description = 'Easy Twitter integration for Django.',
-    author = ecl_twitter.__author__,
-    author_email = ecl_twitter.__email__,
+    author = metadata.__author__,
+    author_email = metadata.__email__,
     packages=['ecl_twitter'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
