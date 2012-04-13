@@ -7,7 +7,7 @@ import urlparse
 import uuid
 from operator import itemgetter
 
-try
+try:
     import requests
 except ImportError:
     import urllib2
