@@ -81,7 +81,7 @@ What we did above is easy. For Django projects, we've made it even easier. In yo
     from django.contrib.auth import authenticate, login
     from django.http import HttpResponseRedirect
 
-    from ecl_twitter.decorators import twitter_begin, twitter_callback
+    from ecl_twitter import twitter_begin, twitter_callback
 
     from .models import User
 
