@@ -2,7 +2,6 @@ from functools import wraps
 import logging
 
 import twitter
-from signals import post_twitter_auth
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +44,8 @@ def twitter_callback(fun):
         secret = request.session['temporary_oauth_secret']
         client = twitter.Twitter(token, secret)
         data = client.oauth.access_token(oauth_verifier=verifier)
+
+        from signals import post_twitter_auth
         post_twitter_auth.send('ecl_twitter', data=data)
         return fun(request, data, *args, **kwargs)
     return inner
