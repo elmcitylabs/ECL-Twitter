@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>API Reference &mdash; ECL Twitter 1.0.7 documentation</title>
+    <title>API Reference &mdash; ECL Twitter 1.0.9 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0.7',
+        VERSION:     '1.0.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="ECL Twitter 1.0.7 documentation" href="index.html" /> 
+    <link rel="top" title="ECL Twitter 1.0.9 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">ECL Twitter 1.0.7 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ECL Twitter 1.0.9 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -48,6 +48,53 @@
             
   <div class="section" id="module-ecl_twitter">
 <span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-ecl_twitter" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ecl-twitter">
+<h2>ecl_twitter<a class="headerlink" href="#ecl-twitter" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body"><ol class="first loweralpha simple" start="3">
+<li>2012 Elm City Labs, LLC</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body"><p class="first last">Apache 2.0, see LICENSE for more details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="ecl_twitter.Twitter">
+<em class="property">class </em><tt class="descclassname">ecl_twitter.</tt><tt class="descname">Twitter</tt><big>(</big><em>token=None</em>, <em>secret=None</em>, <em>ssl=True</em><big>)</big><a class="headerlink" href="#ecl_twitter.Twitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exposes a simple mechanism to interact with the Twitter API. E.g.,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">twitter</span> <span class="o">=</span> <span class="n">Twitter</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">access_secret_secret</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">twitter</span><span class="o">.</span><span class="n">favorites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">twitter</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">twitter</span><span class="o">.</span><span class="n">statuses</span><span class="o">.</span><span class="n">user_timeline</span><span class="p">(</span><span class="n">screen_name</span><span class="o">=</span><span class="s">&#39;elmcitylabs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecl_twitter.twitter_begin">
+<tt class="descclassname">ecl_twitter.</tt><tt class="descname">twitter_begin</tt><big>(</big><em>fun</em><big>)</big><a class="headerlink" href="#ecl_twitter.twitter_begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Django view decorator that gets a request token and secret from Twitter and
+redirects the user to a URL where they can authorize the application.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecl_twitter.twitter_callback">
+<tt class="descclassname">ecl_twitter.</tt><tt class="descname">twitter_callback</tt><big>(</big><em>fun</em><big>)</big><a class="headerlink" href="#ecl_twitter.twitter_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Django view decorator that generates a Twitter OAuth access token and
+secret after the user authorizes the application. Must be used in
+conjunction with the <tt class="docutils literal"><span class="pre">twitter_begin</span></tt> decorator.</p>
+<p>The wrapped view is passed an <tt class="docutils literal"><span class="pre">Objectifier</span></tt> object containing the the
+access token, the access token secret, the user id, and the user&#8217;s screen
+name.</p>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -56,6 +103,14 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API Reference</a><ul>
+<li><a class="reference internal" href="#ecl-twitter">ecl_twitter</a></li>
+</ul>
+</li>
+</ul>
+
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/documentation.txt"
@@ -87,7 +142,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">ECL Twitter 1.0.7 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ECL Twitter 1.0.9 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
