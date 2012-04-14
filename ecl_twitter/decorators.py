@@ -1,6 +1,8 @@
 from functools import wraps
 import logging
 
+from django.http import HttpResponseRedirect
+
 import twitter
 
 logger = logging.getLogger(__name__)
