@@ -24,6 +24,5 @@ documentation:
 push: documentation
 	git push github master
 	git push origin master
-	cd docs/_build/html && git add . && git commit -m "doc update" && git push
-
+	cd docs/_build/html && git add . && git commit -m "doc update" && git push && git archive -o latest.zip HEAD
 
