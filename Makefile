@@ -22,7 +22,7 @@ documentation:
 	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
 	python setup.py upload_docs
 
-push: documentation
+push:
 	git push github master
 	git push origin master
 
