@@ -13,8 +13,8 @@ ECL Twitter is an awesome Twitter library for Python 2.7+. It makes the Twitter
 API a joy to use, and Django integration is baked in. To find out more, read
 on!
 
-If you have an issue to report or a feature request, add it at
-https://github.com/elmcitylabs/ECL-Twitter/issues.
+If you have an issue to report or a feature request, add it to our
+`issue tracker <https://github.com/elmcitylabs/ECL-Twitter/issues>`_.
 
 .. _installation:
 
@@ -32,7 +32,11 @@ ECL Twitter is on PyPi, so we recommend installing via `pip`_::
 Configuration
 -------------
 
-If you'd like to use ECL Twitter for a stand alone application (e.g., in a script you're writing to download your tweets), you'll need to set the environment variables ``TWITTER_KEY``, ``TWITTER_SECRET``, and ``TWITTER_REDIRECT_URL`` with the values appropriate for your Twitter application.::
+If you'd like to use ECL Twitter for a stand alone application (e.g., in a
+script you're writing to download your tweets), you'll need to set the
+environment variables ``TWITTER_KEY``, ``TWITTER_SECRET``, and
+``TWITTER_REDIRECT_URL`` with the values appropriate for your Twitter
+application.::
 
     export TWITTER_KEY="Gmxb5Rh7gpOpzunQ7SQcOA"
     export TWITTER_SECRET="irhZg1W5NO2r7M9IRwhjHKpzKPjJ3HXc6RYCbrM0"
@@ -130,6 +134,7 @@ Twitter-related fields in your user model.
 Contributing, feedback, and questions
 -------------------------------------
 
+* Bitbucket: https://bitbucket.com/elmcitylabs
 * Github: https://github.com/elmcitylabs
 * Email: opensource@elmcitylabs.com.
 * Twitter: `@elmcitylabs <http://twitter.com/elmcitylabs>`_
