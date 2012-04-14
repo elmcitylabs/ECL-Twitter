@@ -1,4 +1,4 @@
-all: pyc version
+all: pyc version push
 
 init:
 	virtualenv .
