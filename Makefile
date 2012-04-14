@@ -19,7 +19,13 @@ version: pyc
 	s3cmd put dist/ecl_twitter-${MAJ}.${MIN}.tar.gz s3://packages.elmcitylabs.com/ -P
 
 documentation:
+	cp docs/index.rst README.rst
+	sed -i '' 's/:ref://g' README.rst
 	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
+	cd ../../..
+	git add README.rst
+	git add docs
+	git commit -m "doc update"
 	python setup.py upload_docs
 
 push:
