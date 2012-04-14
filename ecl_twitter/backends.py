@@ -8,15 +8,15 @@ class TwitterAuthBackend():
     """
     Simple authentication backend that logs in a user with a specified id.
     """
-    def authenticate(self, user_id):
+    def authenticate(self, id):
         try:
-            return GenericUser.objects.get(id=user_id)
+            return GenericUser.objects.get(id=id)
         except GenericUser.DoesNotExist:
             return None
 
-    def get_user(self, user_id):
+    def get_user(self, id):
         try:
-            return GenericUser.objects.get(pk=user_id)
+            return GenericUser.objects.get(pk=id)
         except GenericUser.DoesNotExist:
             return None
 
