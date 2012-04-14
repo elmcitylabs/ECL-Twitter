@@ -19,10 +19,10 @@ version: pyc
 	s3cmd put dist/ecl_twitter-${VERSION}.tar.gz s3://packages.elmcitylabs.com/ -P
 
 documentation:
-	cd docs && make html
+	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
+	python setup.py upload_docs
 
 push: documentation
 	git push github master
 	git push origin master
-	cd docs/_build/html && git add . && git commit -m "doc update" && git push && git archive -o latest.zip HEAD
 
