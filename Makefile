@@ -16,7 +16,7 @@ version: pyc
 	git add docs/conf.py
 	git commit -m "bump version to ${MAJ}.${MIN}"
 	python setup.py sdist upload --sign
-	s3cmd put dist/ecl_twitter-${VERSION}.tar.gz s3://packages.elmcitylabs.com/ -P
+	s3cmd put dist/ecl_twitter-${MAJ}.${MIN}.tar.gz s3://packages.elmcitylabs.com/ -P
 
 documentation:
 	cd docs && make html && cd _build/html && git add . && git commit -m "doc update" && git push
