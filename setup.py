@@ -1,5 +1,6 @@
 #!/usr/bin/env/python
 
+import os
 from ecl_twitter import metadata
 
 try:
@@ -7,12 +8,16 @@ try:
 except ImportError:
     from distutils.core import setup
 
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 setup(
     name = 'ecl_twitter',
     version = metadata.__version__,
     url = 'http://elmcitylabs.com',
     license = metadata.__license__,
     description = 'Easy Twitter integration for Django.',
+    long_description=read('README.rst'),
     author = metadata.__author__,
     author_email = metadata.__email__,
     packages=['ecl_twitter'],
