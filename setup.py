@@ -8,8 +8,8 @@ try:
 except ImportError:
     from distutils.core import setup
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+with open("README.rst") as f:
+    long_description = f.read()
 
 setup(
     name = 'ecl_twitter',
@@ -17,7 +17,7 @@ setup(
     url = 'http://elmcitylabs.com',
     license = metadata.__license__,
     description = 'Easy Twitter integration for Django.',
-    long_description=read('README.rst'),
+    long_description=long_description,
     author = metadata.__author__,
     author_email = metadata.__email__,
     packages=['ecl_twitter'],
