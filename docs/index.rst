@@ -43,7 +43,7 @@ Authentication
 
 We've made authentication very simple. Probably too simple, to be honest.::
 
-    >>> from twitter import Twitter
+    >>> from ecl_twitter import Twitter
     >>> twitter = Twitter()
     >>> url, token, secret = twitter.generate_authorization()
     >>> url
