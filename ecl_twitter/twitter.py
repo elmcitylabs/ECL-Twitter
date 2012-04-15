@@ -13,22 +13,25 @@ except ImportError:
     import urllib2
 
     class Response(object):
-        def __init__(self, data):
+        def __init__(self, data, headers):
             self.text = data
+            self.headers = headers
 
 
     class requests(object):
         @staticmethod
         def post(url, data, headers):
-            response = urllib2.urlopen(url, data, headers=headers)
-            return Response(response.read())
+            request = urllib2.Request(url, data, headers)
+            response = urllib2.urlopen(request)
+            return Response(response.read(), response.headers)
 
         @staticmethod
         def get(url, params, headers):
             encoded_params = "&".join("%s=%s" % (k, v) \
                     for k, v in params.iteritems())
-            response = urllib2.urlopen(url + "?" + encoded_params, headers=headers)
-            return Response(response.read())
+            request = urllib2.Request(url + "?" + encoded_params, headers=headers)
+            response = urllib2.urlopen(request)
+            return Response(response.read(), response.headers)
 
 try:
     from objectifier import Objectifier
