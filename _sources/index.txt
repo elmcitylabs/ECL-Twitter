@@ -126,9 +126,9 @@ Twitter-related fields in your user model.
 Contributing, feedback, and questions
 -------------------------------------
 
-* Bitbucket: https://bitbucket.com/elmcitylabs
 * Github: https://github.com/elmcitylabs
-* Email: opensource@elmcitylabs.com.
+* Bitbucket: http://bitbucket.com/elmcitylabs
+* Email: opensource@elmcitylabs.com
 * Twitter: `@elmcitylabs <http://twitter.com/elmcitylabs>`_
 
 Indices and tables
