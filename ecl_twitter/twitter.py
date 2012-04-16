@@ -21,7 +21,9 @@ except ImportError:
     class requests(object):
         @staticmethod
         def post(url, data, headers):
-            request = urllib2.Request(url, urllib.urlencode(data), headers)
+            encoded_params = "&".join("%s=%s" % (k, v) \
+                    for k, v in data.iteritems())
+            request = urllib2.Request(url, encoded_params, headers)
             response = urllib2.urlopen(request)
             return Response(response.read(), response.headers)
 
