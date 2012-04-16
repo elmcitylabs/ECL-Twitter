@@ -21,7 +21,7 @@ except ImportError:
     class requests(object):
         @staticmethod
         def post(url, data, headers):
-            request = urllib2.Request(url, data, headers)
+            request = urllib2.Request(url, urllib.urlencode(data), headers)
             response = urllib2.urlopen(request)
             return Response(response.read(), response.headers)
 
