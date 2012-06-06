@@ -38,7 +38,11 @@ except ImportError:
 try:
     from objectifier import Objectifier
 except ImportError:
-    Objectifier = lambda k: k
+    def Objectifier(data):
+        try:
+            return json.loads(data)
+        except TypeError:
+            return dict(data)
 
 import settings
 
@@ -121,17 +125,17 @@ class TwitterCall(object):
             if key.startswith("oauth_"):
                 header_params[key] = urllib.quote(value, safe='')
             else:
-                query_params[key] = urllib.quote(value)
+                query_params[key] = urllib.quote(value, safe='')
 
         signature = generate_signature(base_string, self.secret)
         header_params['oauth_signature'] = urllib.quote_plus(signature)
-        headers = {'Authorization': 'OAuth realm="", %s' % ', '.join(['%s="%s"' % (k, v)
-            for k, v in header_params.iteritems()])}
+        auth_string = ', '.join(['%s="%s"' % (k, v) for k, v in header_params.iteritems()])
+        headers = {'Authorization': 'OAuth {}'.format(auth_string)}
 
         kwargs = {'headers': headers}
         if method == 'POST':
             request_method = requests.post
-            kwargs['data'] = query_params
+            kwargs['data'] = "&".join(["{}={}".format(k, v) for k, v in query_params.iteritems()])
         else:
             request_method = requests.get
             kwargs['params'] = query_params
