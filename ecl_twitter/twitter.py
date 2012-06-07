@@ -104,12 +104,16 @@ class TwitterCall(object):
         self.endpoint_components.append(str(k))
         return self.__class__(self.token, self.secret, self.endpoint_components)
 
-    def __call__(self, method='GET', **kwargs):
+    def __call__(self, method='GET', base=None, **kwargs):
         resource = "/".join(self.endpoint_components)
+
+        if base is None:
+            base = self.base
+
         if 'oauth_verifier' in kwargs or 'oauth_callback' in kwargs:
-            url = "{}{}".format(self.base, resource)
+            url = "{}{}".format(base, resource)
         else:
-            url = "{}1/{}.json".format(self.base, resource)
+            url = "{}1/{}.json".format(base, resource)
 
         signing_params = PARAMS()
         signing_params.update(kwargs)
